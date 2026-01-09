@@ -1,0 +1,214 @@
+/* ===== Main Container ===== */
+.main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 24px var(--container-padding);
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+.header {
+  padding: 24px 0 32px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 32px 0 40px;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground-muted);
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--primary-blue);
+  gap: 8px;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--foreground);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--foreground-muted);
+  max-width: 560px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===== Accent Bar ===== */
+.accentBar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--gold), var(--secondary-blue));
+  border-radius: 2px;
+  margin: 0 0 32px;
+}
+
+/* ===== Calculator List ===== */
+.calculatorList {
+  padding-bottom: 48px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Cards ===== */
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--secondary-blue);
+}
+
+.cardPlaceholder {
+  border-style: dashed;
+}
+
+.cardPlaceholder:hover {
+  border-color: var(--gold-muted);
+}
+
+.cardBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.12);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--foreground);
+  margin: 0 0 8px;
+  padding-right: 70px;
+}
+
+.cardDescription {
+  font-size: 0.9rem;
+  color: var(--foreground-muted);
+  line-height: 1.6;
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--foreground-subtle);
+}
+
+.cardButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  width: fit-content;
+}
+
+.cardButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  gap: 12px;
+}
+
+.followLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.followLink:hover {
+  color: var(--gold);
+  gap: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cardButton {
+    box-shadow: var(--shadow-sm);
+  }
+}
