@@ -22,8 +22,7 @@ export default function HomePage() {
     height: 200,
     borderRadius: "50%",
     overflow: "hidden",
-    background: "white",
-    marginBottom: 16,
+      marginBottom: 16,
   }}
 >
   <Image
