@@ -15,14 +15,27 @@ export default function HomePage() {
       {/* Hero */}
       <div style={{ padding: "36px 0" }}>
         <div style={{ fontSize: 12, opacity: 0.75 }}>NEK_VAULT</div>
-        <Image
-  src="/logo.png"
-  alt="NEK_VAULT logo"
-  width={200}
-  height={140}
-  priority
-  style={{ borderRadius: 16 }}
-/>
+        <div
+  style={{
+    position: "relative",
+    width: 200,
+    height: 200,
+    borderRadius: "50%",
+    overflow: "hidden",
+    background: "white",
+    marginBottom: 16,
+  }}
+>
+  <Image
+    src="/logo.png"
+    alt="NEK VAULT logo"
+    fill
+    priority
+    style={{ objectFit: objectFit: "cover"
+ }}
+  />
+</div>
+
 
         <h1 style={{ margin: "6px 0 0 0", fontSize: 40 }}>
           Break Calculators for Soccer Cards
