@@ -31,7 +31,7 @@ export default function HomePage() {
     alt="NEK VAULT logo"
     fill
     priority
-    style={{ objectFit: objectFit: "cover"
+    style={{ objectFit: "cover"
  }}
   />
 </div>
