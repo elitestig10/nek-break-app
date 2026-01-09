@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import styles from "./dynasty.module.css";
 
 type Row = {
   player: string;
@@ -127,73 +129,57 @@ export default function Page() {
 
   if (!data) {
     return (
-      <div style={{ padding: 28, fontFamily: "system-ui, Arial" }}>
-        Loading…
+      <div className={styles.loading}>
+        <div className={styles.spinner} />
+        <span>Loading calculator...</span>
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        maxWidth: 1100,
-        margin: "0 auto",
-        padding: 24,
-        fontFamily: "system-ui, Arial",
-      }}
-    >
-  <div
-  style={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 12,
-    flexWrap: "wrap",
-  }}
->
-  <div>
-    <div style={{ fontSize: 12, opacity: 0.75 }}>NEK_VAULT</div>
-    <h1 style={{ margin: "4px 0 0 0" }}>Break Calculator</h1>
-    <div style={{ fontSize: 12, opacity: 0.75, marginTop: 4 }}>
-      Checklist-based odds • Updates instantly
-    </div>
-  </div>
+    <div className={styles.main}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <Link href="/calculators" className={styles.backLink}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back to Calculators
+          </Link>
+          <a
+            href="https://www.instagram.com/nek_vault"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.instagramBtn}
+          >
+            Follow NEK_VAULT
+          </a>
+        </div>
+        <div className={styles.headerContent}>
+          <span className={styles.badge}>NEK_VAULT</span>
+          <h1 className={styles.title}>Break Calculator</h1>
+          <p className={styles.subtitle}>
+            Checklist-based odds • Updates instantly
+          </p>
+        </div>
+      </header>
 
-  <a
-    href="https://www.instagram.com/nek_vault"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      padding: "10px 14px",
-      borderRadius: 12,
-      background: "linear-gradient(135deg,#f58529,#dd2a7b,#8134af)",
-      color: "white",
-      fontWeight: 900,
-      textDecoration: "none",
-      fontSize: 14,
-      whiteSpace: "nowrap",
-    }}
-  >
-    Follow NEK_VAULT
-  </a>
-</div>
+      {/* Accent Bar */}
+      <div className={styles.accentBar} />
 
+      {/* Main Content Grid */}
+      <div className={styles.contentGrid}>
+        {/* Inputs Card */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Inputs</h2>
 
-      <div
-        style={{
-          marginTop: 16,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 16,
-        }}
-      >
-        {/* Inputs */}
-        <Card title="Inputs">
-          <Field label="Player">
+          <div className={styles.field}>
+            <label className={styles.label}>Player</label>
             <select
               value={player}
               onChange={(e) => setPlayer(e.target.value)}
-              style={inputStyle}
+              className={styles.select}
             >
               {data.players.map((p) => (
                 <option key={p} value={p}>
@@ -201,13 +187,14 @@ export default function Page() {
                 </option>
               ))}
             </select>
-          </Field>
+          </div>
 
-          <Field label="Team (optional)">
+          <div className={styles.field}>
+            <label className={styles.label}>Team (optional)</label>
             <select
               value={team}
               onChange={(e) => setTeam(e.target.value)}
-              style={inputStyle}
+              className={styles.select}
             >
               <option value="">All teams</option>
               {teamsForPlayer.map((t) => (
@@ -216,195 +203,149 @@ export default function Page() {
                 </option>
               ))}
             </select>
-          </Field>
+          </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-            <Field label="Cards per box">
+          <div className={styles.numberGrid}>
+            <div className={styles.field}>
+              <label className={styles.label}>Cards per box</label>
               <input
                 type="number"
                 min={1}
                 value={cardsPerBox}
                 onChange={(e) => setCardsPerBox(Math.max(1, Number(e.target.value) || 1))}
-                style={inputStyle}
+                className={styles.input}
               />
-            </Field>
+            </div>
 
-            <Field label="Boxes opened">
+            <div className={styles.field}>
+              <label className={styles.label}>Boxes opened</label>
               <input
                 type="number"
                 min={1}
                 value={boxesOpened}
                 onChange={(e) => setBoxesOpened(Math.max(1, Number(e.target.value) || 1))}
-                style={inputStyle}
+                className={styles.input}
               />
-            </Field>
+            </div>
 
-            <Field label="Boxes per case">
+            <div className={styles.field}>
+              <label className={styles.label}>Boxes per case</label>
               <input
                 type="number"
                 min={1}
                 value={boxesPerCase}
                 onChange={(e) => setBoxesPerCase(Math.max(1, Number(e.target.value) || 1))}
-                style={inputStyle}
+                className={styles.input}
               />
-            </Field>
+            </div>
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 12, opacity: 0.75 }}>
-            Leave Team as “All teams” to calculate player odds across every team.
-          </div>
-        </Card>
+          <p className={styles.hint}>
+            Leave Team as "All teams" to calculate player odds across every team.
+          </p>
+        </div>
 
-        {/* Outputs */}
-        <Card title="Outputs">
-          <Out
-            label="Matching checklist lines"
-            value={`${filtered.length}`}
-            desc="How many checklist rows match your selection."
-          />
-          <Out
-            label="Total cards printed (player/team)"
-            value={playerTotal.toLocaleString()}
-            desc="Estimated print-run for your selection across all variations."
-          />
-          <Out
-            label="Product total print-run"
-            value={productTotal.toLocaleString()}
-            desc="Estimated total print-run of the full product (denominator)."
-          />
-          <Out
-            label="Odds per hit"
-            value={`${pct(pHit)} • ${oneIn(pHit)}`}
-            desc="Chance a single pulled card is your player/team."
-          />
-          <Out
-            label="Odds per box"
-            value={`${pct(pBox)} • ${oneIn(pBox)}`}
-            desc="Chance you hit at least one across Cards per box."
-          />
-          <Out
-            label="Odds in opened boxes"
-            value={`${pct(pOpened)} • ${oneIn(pOpened)}`}
-            desc="Chance you hit at least one across Boxes opened."
-          />
-          <Out
-            label="Odds per case"
-            value={`${pct(pCase)} • ${oneIn(pCase)}`}
-            desc="Chance you hit at least one in one full case."
-          />
-        </Card>
+        {/* Outputs Card */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Results</h2>
+
+          <div className={styles.outputList}>
+            <OutputRow
+              label="Matching checklist lines"
+              value={`${filtered.length}`}
+              desc="How many checklist rows match your selection."
+            />
+            <OutputRow
+              label="Total cards printed"
+              value={playerTotal.toLocaleString()}
+              desc="Estimated print-run for your selection across all variations."
+            />
+            <OutputRow
+              label="Product total print-run"
+              value={productTotal.toLocaleString()}
+              desc="Estimated total print-run of the full product."
+            />
+            <OutputRow
+              label="Odds per hit"
+              value={pct(pHit)}
+              subvalue={oneIn(pHit)}
+              desc="Chance a single pulled card is your player/team."
+              highlight
+            />
+            <OutputRow
+              label="Odds per box"
+              value={pct(pBox)}
+              subvalue={oneIn(pBox)}
+              desc="Chance you hit at least one across cards per box."
+            />
+            <OutputRow
+              label="Odds in opened boxes"
+              value={pct(pOpened)}
+              subvalue={oneIn(pOpened)}
+              desc="Chance you hit at least one across boxes opened."
+            />
+            <OutputRow
+              label="Odds per case"
+              value={pct(pCase)}
+              subvalue={oneIn(pCase)}
+              desc="Chance you hit at least one in one full case."
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Variations */}
-      <div style={{ marginTop: 16 }}>
-        <Card title="Variation breakdown">
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr>
-                  {["Variation", "Estimated print-run", "Odds per hit", "Odds per box", "Odds in opened boxes", "Meaning"].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        style={{
-                          textAlign: "left",
-                          fontSize: 12,
-                          padding: 10,
-                          borderBottom: "1px solid #eee",
-                          opacity: 0.85,
-                        }}
-                      >
-                        {h}
-                      </th>
-                    )
-                  )}
+      {/* Variations Table */}
+      <div className={styles.card}>
+        <h2 className={styles.cardTitle}>Variation Breakdown</h2>
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Variation</th>
+                <th>Est. Print Run</th>
+                <th>Odds per Hit</th>
+                <th>Odds per Box</th>
+                <th>Odds Opened</th>
+              </tr>
+            </thead>
+            <tbody>
+              {variationRows.map((v) => (
+                <tr key={v.variation}>
+                  <td className={styles.variationCell}>{v.variation}</td>
+                  <td>{v.print.toLocaleString()}</td>
+                  <td>
+                    <span className={styles.primaryValue}>{pct(v.pHit)}</span>
+                    <span className={styles.secondaryValue}>{oneIn(v.pHit)}</span>
+                  </td>
+                  <td>{pct(v.pBox)}</td>
+                  <td>{pct(v.pOpened)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {variationRows.map((v) => (
-                  <tr key={v.variation}>
-                    <td style={tdStrong}>{v.variation}</td>
-                    <td style={td}>{v.print.toLocaleString()}</td>
-                    <td style={td}>{`${pct(v.pHit)} • ${oneIn(v.pHit)}`}</td>
-                    <td style={td}>{pct(v.pBox)}</td>
-                    <td style={td}>{pct(v.pOpened)}</td>
-                    <td style={{ ...td, fontSize: 12, opacity: 0.8 }}>
-                      Chance of pulling the {v.variation} version of the selected
-                      player/team.
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 }
 
-function Card(props: { title: string; children: any }) {
+function OutputRow(props: {
+  label: string;
+  value: string;
+  subvalue?: string;
+  desc: string;
+  highlight?: boolean;
+}) {
   return (
-    <div
-      style={{
-        border: "1px solid #e6e6e6",
-        borderRadius: 14,
-        padding: 16,
-        background: "rgba(255,255,255,0.02)",
-      }}
-    >
-      <div style={{ fontWeight: 800, marginBottom: 12 }}>{props.title}</div>
-      {props.children}
-    </div>
-  );
-}
-
-function Field(props: { label: string; children: any }) {
-  return (
-    <div style={{ marginBottom: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6, opacity: 0.85 }}>
-        {props.label}
+    <div className={`${styles.outputRow} ${props.highlight ? styles.outputHighlight : ''}`}>
+      <div className={styles.outputMain}>
+        <span className={styles.outputLabel}>{props.label}</span>
+        <div className={styles.outputValues}>
+          <span className={styles.outputValue}>{props.value}</span>
+          {props.subvalue && <span className={styles.outputSubvalue}>{props.subvalue}</span>}
+        </div>
       </div>
-      {props.children}
+      <p className={styles.outputDesc}>{props.desc}</p>
     </div>
   );
 }
-
-function Out(props: { label: string; value: string; desc: string }) {
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "240px 220px 1fr",
-        gap: 10,
-        padding: "10px 0",
-        borderBottom: "1px solid #f1f1f1",
-      }}
-    >
-      <div style={{ fontWeight: 800 }}>{props.label}</div>
-      <div style={{ fontWeight: 800, fontVariantNumeric: "tabular-nums" }}>
-        {props.value}
-      </div>
-      <div style={{ fontSize: 12, opacity: 0.8 }}>{props.desc}</div>
-    </div>
-  );
-}
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "10px 12px",
-  borderRadius: 10,
-  border: "1px solid #dcdcdc",
-  outline: "none",
-};
-
-const td: React.CSSProperties = {
-  padding: 10,
-  borderBottom: "1px solid #f4f4f4",
-  fontVariantNumeric: "tabular-nums",
-};
-
-const tdStrong: React.CSSProperties = {
-  ...td,
-  fontWeight: 900,
-};
